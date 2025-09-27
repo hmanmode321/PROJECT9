@@ -1,0 +1,6 @@
+streamlit
+langchain
+openai
+newsapi-python
+python-dotenv
+langchain-groq
