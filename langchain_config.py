@@ -21,17 +21,24 @@ llm = ChatGroq(
 # Initialize NewsAPI
 newsapi = NewsApiClient(api_key=news_api_key)
 
-def get_news_articles(query):
-    articles = newsapi.get_everything(q=query, language="en", sort_by="relevancy")
+def get_news_articles(query, num_articles=5):
+    articles = newsapi.get_everything(
+        q=query,
+        language="en",
+        sort_by="relevancy",
+        page_size=num_articles  
+    )
     return articles["articles"]
+
 
 def summarize_articles(articles):
     summaries = [article["description"] for article in articles if article["description"]]
     return " ".join(summaries)
 
-def get_summary(query):
-    articles = get_news_articles(query)
+def get_summary(query, num_articles=5):
+    articles = get_news_articles(query, num_articles)
     return summarize_articles(articles)
+
 
 # Prompt template
 template = """
